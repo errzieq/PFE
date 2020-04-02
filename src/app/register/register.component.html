@@ -1,0 +1,89 @@
+<div class="py-5">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <span class="anchor" id="formLogin"></span>
+  
+        <!-- form card login -->
+        <div class="card rounded-0">
+          <div class="card-header">
+            <h3 class="mb-0">Register</h3>
+          </div>
+          <div class="card-body">
+            <form class="form" (submit)="registerUser(Username.value,Email.value,Password.value,Address.value , Num_phone.value , City.value , Country.value ,Firstname.value,Lastname.value,type.value); " [formGroup]="form">
+              
+                <div class="form-group">
+                  <ngx-validation-errors-field>
+                  <label for="uname1" class="control-label required">Username</label>
+                  <input type="text" #Username name="username" class="form-control" formControlName="username">
+                  </ngx-validation-errors-field>
+                </div>
+                <div class="form-group">
+                  <ngx-validation-errors-field>
+                  <label for="uname1" class="control-label required">Firstname</label>
+                  <input type="text" #Firstname name="firstname" class="form-control" formControlName="firstname">
+                  </ngx-validation-errors-field>
+                </div>
+                <div class="form-group">
+                  <ngx-validation-errors-field>
+                  <label for="uname1" class="control-label required">Lastname</label>
+                  <input type="text" #Lastname name="lastname" class="form-control" formControlName="lastname">
+                  </ngx-validation-errors-field>
+                </div>
+                <div class="form-group">
+                  <ngx-validation-errors-field>
+                  <label for="uname1" class="control-label required">Email</label>
+                  <input type="text" #Email name="email" class="form-control" formControlName="email">
+                  </ngx-validation-errors-field>
+                </div>
+                <div class="form-group">
+                  <ngx-validation-errors-field>
+                  <label class="control-label required">Password</label>
+                  <input type="password" #Password name="password" class="form-control"  formControlName="password">
+                  </ngx-validation-errors-field>
+                </div>
+                <div class="form-group">
+                  <ngx-validation-errors-field>
+                <label for="uname1" class="control-label required">Adresse</label>
+                <input type="text" #Address name="address" class="form-control" formControlName="address">
+                </ngx-validation-errors-field>
+              </div>
+              <div class="form-group">
+              <ngx-validation-errors-field>
+                <label for="uname1" class="control-label required">Phone Number</label>
+                <input type="text" #Num_phone name="num_phone" class="form-control" formControlName="num_phone">
+              </ngx-validation-errors-field>
+              </div>
+              <div class="form-group">
+              <ngx-validation-errors-field>
+                <label for="uname1" class="control-label required">City</label>
+                <input type="text" #City name="city" class="form-control" formControlName="city">
+              </ngx-validation-errors-field>
+              </div>
+              <div class="form-group">
+              <ngx-validation-errors-field>
+                <label for="uname1" class="control-label required">Country</label>
+                <input type="text" #Country name="country" class="form-control" formControlName="country">
+              </ngx-validation-errors-field>
+              </div>
+              <div class="form-group">
+              <label class="control-label required">Type:</label>
+              <select #type id="type" name="type" class="form-control" formControlName="type">
+              <option value="Vendeur">Vendeur</option>
+              <option value="Client">Client</option>
+              </select>
+              </div>
+              
+              
+              <input type="submit" value="SUBMIT" [disabled]="!form.valid" class="btn btn-primary float-right "><br>
+            </form>
+            <a href="app-login" class="pull-left">Login</a>
+          </div>
+          <!--/card-block-->
+        </div>
+        <!-- /form card login -->
+        
+      </div>
+  
+  
+    </div>
+  </div>
