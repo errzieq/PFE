@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { ProjetService } from '../projet.service'
 import { Router } from '@angular/router'
 import { User } from '../user';
@@ -27,10 +27,17 @@ export class RegisterComponent implements OnInit {
       city: [null, Validators.required],
       country: [null, Validators.required],
       type: [null, Validators.required],
+      file: [null, Validators.required],
     });
   }
-
-  registerUser(Username: string , Email: string,Password:string,Address:string , Num_phone:string , City:string , Country:string ,Firstname:string,Lastname:string,Type:string) {
+  @ViewChild('fileInput') fileInput;
+  uploadFile() {
+    const files: FileList = this.fileInput.nativeElement.files;
+    if (files.length === 0) {
+      return;
+    };
+}
+  registerUser(Username: string , Email: string,Password:string,Address:string , Num_phone:string , City:string , Country:string ,Firstname:string,Lastname:string,Type:string,fileInput:string) {
     
     Email = Email.trim()
     Password= Password.trim()
@@ -55,8 +62,9 @@ export class RegisterComponent implements OnInit {
            else{
 
            
-          const newTask: User = { userId: this.users.length + 1 ,username:Username , email:Email,password:Password , address:Address , num_phone:Num_phone , city:City , country:Country,firstname:Firstname,lastname:Lastname,type:Type} as User
+          const newTask: User = { userId: this.users.length + 1 ,username:Username , email:Email,password:Password , address:Address , num_phone:Num_phone , city:City , country:Country,firstname:Firstname,lastname:Lastname,type:Type,image:fileInput.replace("C:\\fakepath\\", "")} as User
           this._auth.addUser(newTask).subscribe(() => this._auth.getUsers())
+          this._router.navigate(['/app-login'])
         }
         this.exist = 0
   

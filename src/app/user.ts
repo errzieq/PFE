@@ -16,4 +16,5 @@ export interface User {
     like:number
     Count:number
     Mean:number
+    image:string
 }

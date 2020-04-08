@@ -9,7 +9,7 @@
             <h3 class="mb-0">Register</h3>
           </div>
           <div class="card-body">
-            <form class="form" (submit)="registerUser(Username.value,Email.value,Password.value,Address.value , Num_phone.value , City.value , Country.value ,Firstname.value,Lastname.value,type.value); " [formGroup]="form">
+            <form class="form" (submit)="registerUser(Username.value,Email.value,Password.value,Address.value , Num_phone.value , City.value , Country.value ,Firstname.value,Lastname.value,type.value,fileInput.value); " [formGroup]="form">
               
                 <div class="form-group">
                   <ngx-validation-errors-field>
@@ -65,6 +65,12 @@
                 <input type="text" #Country name="country" class="form-control" formControlName="country">
               </ngx-validation-errors-field>
               </div>
+              <div class="form-group">
+                <ngx-validation-errors-field>
+                  <label for="uname1" class="control-label required">Image</label><br>
+                  <input type="file" #fileInput formControlName="file" style="background-color: #000;border-radius: 4rem;color: #fff;cursor: pointer;margin-top: -20px;" ><br>
+                </ngx-validation-errors-field>
+                </div>
               <div class="form-group">
               <label class="control-label required">Type:</label>
               <select #type id="type" name="type" class="form-control" formControlName="type">

@@ -2,6 +2,7 @@ import { Component, OnInit  } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Task } from '../task'
 import { ProjetService } from '../projet.service'
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-vendeur',
@@ -20,10 +21,17 @@ export class VendeurComponent implements OnInit {
     this._opened = !this._opened;
   }
   
-  constructor(private projetService: ProjetService, private http: HttpClient) { }
+  constructor(private projetService: ProjetService, private http: HttpClient,private authService: AuthService) { }
 
   ngOnInit() {
     /*this.getTasks()*/
+  }
+  getLogin() {
+    return this.authService.getUser().login;
+  }
+
+  logout() {
+    return this.authService.logout();
   }
   /*getTasks (): void {
     this.projetService.getTasks().subscribe(tasks => (this.tasks = tasks))

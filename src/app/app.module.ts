@@ -30,6 +30,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component'
 import {NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
+import { ProfilComponent } from './client/profil/profil.component';
+import { SettingsComponent } from './client/profil/settings/settings.component';
+import { RatedComponent } from './client/profil/rated/rated.component';
+import { LikedComponent } from './client/profil/liked/liked.component';
+import { PanierComponent } from './client/profil/panier/panier.component';
+import { AuthService } from './service/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +58,12 @@ import {NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
     LoginComponent,
     ChartsComponentAdmin,
     DashboardComponentAdmin,
-    ProductsComponentAdmin
+    ProductsComponentAdmin,
+    ProfilComponent,
+    SettingsComponent,
+    RatedComponent,
+    LikedComponent,
+    PanierComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +79,7 @@ import {NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
     NgbModule,
     NgxValidationErrorsModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

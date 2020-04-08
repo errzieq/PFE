@@ -5,4 +5,5 @@ export interface Metauser {
     Product_name:string
     rating:number
     like:number
+    panier:number
 }

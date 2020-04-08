@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   exist:any
   users: User[]
   form: FormGroup;
-
+  model: any = {};
   constructor(private _auth: ProjetService, private _router: Router,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
   
   loginUser (Email: string,Password:string) {
+    var iduser:number
     this._auth
       .getUsers()
       .subscribe((data: User[]) => {
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
         this.users.forEach(n => {
           if(n.email == Email && n.password == Password )
           {
+            iduser = n.userId
             console.log(n.type)
             if(n.type == 'Vendeur'){this.exist = 1}
             else if (n.type == 'Client'){this.exist = 2}
@@ -41,14 +43,23 @@ export class LoginComponent implements OnInit {
 
         if(this.exist==1){
           alert("Welcome Vendeur");
+          console.log('Tentative de connexion vendeur');
+          // Vérifier que login/mdp sont correctes, par exemple par une requête à un service REST
+          localStorage.setItem('user', JSON.stringify({email:Email,userId:iduser}));
           this._router.navigate(['/app-vendeur'])
         }
         else if (this.exist==2) {
           alert("Welcome Client");
-          this._router.navigate(['/app-senhaji'])
+          console.log('Tentative de connexion client');
+          // Vérifier que login/mdp sont correctes, par exemple par une requête à un service REST
+          localStorage.setItem('user', JSON.stringify({email:Email,userId:iduser}));
+          this._router.navigate(['/app-profil'])
         } 
         else if (this.exist==3) {
           alert("Welcome Admin");
+          console.log('Tentative de connexion admin');
+          // Vérifier que login/mdp sont correctes, par exemple par une requête à un service REST
+          localStorage.setItem('user', JSON.stringify({email:Email,userId:iduser}));
           this._router.navigate(['/app-admin'])
         }
         else{

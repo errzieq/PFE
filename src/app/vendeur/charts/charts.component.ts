@@ -50,6 +50,8 @@ export class ChartsComponent implements OnInit {
   rated_by_subcategorie_sporting = new Array();
   nameproductsleastpopular = new Array();
   countactedtimeleastpopular =  new Array();
+  categorie =  new Array();
+  UserId:number = JSON.parse(localStorage.getItem('user')).userId;
 
   constructor(private projetService: ProjetService, private http: HttpClient) { }
   public barChartOptions = {
@@ -57,7 +59,8 @@ export class ChartsComponent implements OnInit {
     responsive: true
   };
 
-  public barChartLabels = ['Accessories', 'Apparel', 'Books', 'Footwear', 'Personal Care', 'Phones', 'Sporting Goods'];
+  
+  public barChartLabels = this.categorie;
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartData = [
@@ -70,8 +73,8 @@ export class ChartsComponent implements OnInit {
 
   
  
-  leastpopularproducts (): void {
-    this.projetService.leastpopularproducts().subscribe(tasks => (this.tasks = tasks))
+  leastpopularproductsuser (UserId): void {
+    this.projetService.leastpopularproductsuser(UserId).subscribe(tasks => (this.tasks = tasks))
   }
 
 
@@ -86,21 +89,23 @@ export class ChartsComponent implements OnInit {
  
 
   ngOnInit() {
-    
-    this.leastpopularproducts()
+    console.log(JSON.parse(localStorage.getItem('user')).userId)
+    this.leastpopularproductsuser(this.UserId)
 
     this.projetService
-      .info()
+      .infouser(this.UserId)
       .subscribe((data: Info[]) => {
         this.infos = data;
         this.infos.forEach(n => {
           this.count_by_categorie.push(n.accessoriescount);
           this.count_by_categorie.push(n.apparelcount);
           this.count_by_categorie.push(n.bookscount);
-          this.count_by_categorie.push(n.footwearcount);
+          this.count_by_categorie.push(n.footwearcount);  
           this.count_by_categorie.push(n.personal_Carecount);
           this.count_by_categorie.push(n.phonescount);
           this.count_by_categorie.push(n.sportcount);
+          
+
           
           this.totalrating_by_categorie.push(n.accessoriestotalrating);
           this.totalrating_by_categorie.push(n.appareltotalrating);
@@ -451,7 +456,13 @@ export class ChartsComponent implements OnInit {
       console.log(this.count_by_subcategorie_phones)
       console.log(this.count_by_subcategorie_sporting)
             
-          
+      if(this.count_by_categorie[0] != 0) {this.categorie.push('Accessories')}
+      if(this.count_by_categorie[1] != 0) {this.categorie.push('Apperel')}
+      if(this.count_by_categorie[2]  != 0) {this.categorie.push('Books')}
+      if(this.count_by_categorie[3]  != 0) {this.categorie.push('Footwear')}
+      if(this.count_by_categorie[4]  != 0) {this.categorie.push('Personal Care')}
+      if(this.count_by_categorie[5]  != 0) {this.categorie.push('Phones')}
+      if(this.count_by_categorie[6]  != 0) {this.categorie.push('Sporting Goods')}    
           
         });
            
@@ -462,7 +473,7 @@ export class ChartsComponent implements OnInit {
   
  
   
-  public doughnutChartLabels = ['Accessories', 'Apparel', 'Books', 'Footwear', 'Personal Care', 'Phones', 'Sporting Goods'];
+  public doughnutChartLabels = this.categorie;
   public doughnutChartData = this.totalliking_by_categorie;
   public doughnutChartType = 'doughnut';
   
@@ -470,7 +481,7 @@ export class ChartsComponent implements OnInit {
   
 
 
-  public pieChartLabels = ['Accessories', 'Apparel', 'Books', 'Footwear', 'Personal Care', 'Phones', 'Sporting Goods'];
+  public pieChartLabels = this.categorie;
   public pieChartData = this.count_by_categorie;
   public backgroundColor: ["#ffffff", "#8e5ea2","#3cba9f","#e8c3b9","#ffffff", "green","black"];
   public pieChartType = 'pie';

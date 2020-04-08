@@ -2,6 +2,7 @@ import { Component, OnInit  } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Task } from '../task'
 import { ProjetService } from '../projet.service'
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -19,13 +20,19 @@ export class AdminComponent implements OnInit {
     this._opened = !this._opened;
   }
   
-  constructor(private projetService: ProjetService, private http: HttpClient) { }
+  constructor(private projetService: ProjetService, private http: HttpClient,private authService: AuthService) { }
 
   ngOnInit() {
     
   }
   
+  getLogin() {
+    return this.authService.getUser().login;
+  }
 
+  logout() {
+    return this.authService.logout();
+  }
 
 
 

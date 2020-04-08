@@ -59,15 +59,17 @@ export class DashboardComponent implements OnInit {
   totalrating_by_subcategorie_sporting = new Array();
   totalliking_by_subcategorie_sporting = new Array();
   rated_by_subcategorie_sporting = new Array();
+  UserId = JSON.parse(localStorage.getItem('user')).userId;
+  subcategorie = new Array();
 
   constructor(private projetService: ProjetService, private http: HttpClient) { }
 
   ngOnInit(){
-
+    console.log(JSON.parse(localStorage.getItem('user')).userId)
   
 
     this.projetService
-    .popularproducts()
+    .popularproductsuser(this.UserId)
     .subscribe((data: Task[]) => {
       this.tasks = data;
     console.log(this.tasks[2].like)
@@ -148,7 +150,7 @@ export class DashboardComponent implements OnInit {
 
 
     this.projetService
-    .info()
+    .infouser(this.UserId)
     .subscribe((data: Info[]) => {
       this.infos = data;
       this.infos.forEach(n => {
@@ -196,7 +198,7 @@ export class DashboardComponent implements OnInit {
           this.count_by_subcategorie_accessories.push(n.jewellerycount);
           this.count_by_subcategorie_accessories.push(n.walletscount);
           this.count_by_subcategorie_accessories.push(n.watches_Accessoriescount);
-          
+
           this.totalrating_by_subcategorie_accessories.push(n.bags_Accessoriestotalrating);
           this.totalrating_by_subcategorie_accessories.push(n.beltstotalrating);
           this.totalrating_by_subcategorie_accessories.push(n.cufflinkstotalrating);
@@ -230,17 +232,17 @@ export class DashboardComponent implements OnInit {
           this.rated_by_subcategorie_accessories.push(n.walletsrated);
           this.rated_by_subcategorie_accessories.push(n.watches_Accessoriesrated);
 
-          this.count_by_subcategorie_apparel.push(n.innerwearcount);
-          this.count_by_subcategorie_apparel.push(n.scarvescount);
-          this.count_by_subcategorie_apparel.push(n.bottomwearcount);
-          this.count_by_subcategorie_apparel.push(n.topwearcount);
           this.count_by_subcategorie_apparel.push(n.apparel_setcount);
+          this.count_by_subcategorie_apparel.push(n.bottomwearcount);
           this.count_by_subcategorie_apparel.push(n.dresscount);
-          this.count_by_subcategorie_apparel.push(n.tiescount);
-          this.count_by_subcategorie_apparel.push(n.stolescount);
+          this.count_by_subcategorie_apparel.push(n.innerwearcount);
           this.count_by_subcategorie_apparel.push(n.loungewear_nightwearcount);
           this.count_by_subcategorie_apparel.push(n.sareecount);
-          
+          this.count_by_subcategorie_apparel.push(n.scarvescount);
+          this.count_by_subcategorie_apparel.push(n.stolescount);
+          this.count_by_subcategorie_apparel.push(n.tiescount);
+          this.count_by_subcategorie_apparel.push(n.topwearcount);
+
           this.totalrating_by_subcategorie_apparel.push(n.innerweartotalrating);
           this.totalrating_by_subcategorie_apparel.push(n.scarvestotalrating);
           this.totalrating_by_subcategorie_apparel.push(n.bottomweatotalrrating);
@@ -502,10 +504,77 @@ export class DashboardComponent implements OnInit {
       this.rated_by_subcategorie_sporting = this.rated_by_subcategorie_sporting.filter(f => f !== undefined)
       
       
-    
-  
-    
       
+  
+      if(this.count_by_subcategorie_accessories[0] != 0) {this.subcategorie.push('bags(Accessories)')}
+      if(this.count_by_subcategorie_accessories[1] != 0) {this.subcategorie.push('belts')}
+      if(this.count_by_subcategorie_accessories[2]  != 0) {this.subcategorie.push('cufflinks')}
+      if(this.count_by_subcategorie_accessories[3]  != 0) {this.subcategorie.push('eyewear(Accessories)')}
+      if(this.count_by_subcategorie_accessories[4]  != 0) {this.subcategorie.push('gift set')}
+      if(this.count_by_subcategorie_accessories[5]  != 0) {this.subcategorie.push('gloves')}
+      if(this.count_by_subcategorie_accessories[6]  != 0) {this.subcategorie.push('headwear(Accessories)')} 
+      if(this.count_by_subcategorie_accessories[7]  != 0) {this.subcategorie.push('jewellery')}
+      if(this.count_by_subcategorie_accessories[8]  != 0) {this.subcategorie.push('wallets')}
+      if(this.count_by_subcategorie_accessories[9]  != 0) {this.subcategorie.push('watches(Accessories)')}
+      if(this.count_by_subcategorie_apparel[0]  != 0) {this.subcategorie.push('apparel set')}
+      if(this.count_by_subcategorie_apparel[1]  != 0) {this.subcategorie.push('bottomwear')}
+      if(this.count_by_subcategorie_apparel[2]  != 0) {this.subcategorie.push('dress')}
+      if(this.count_by_subcategorie_apparel[3] != 0) {this.subcategorie.push('innerwear')}
+      if(this.count_by_subcategorie_apparel[4]  != 0) {this.subcategorie.push('loungewear and nightwear')}
+      if(this.count_by_subcategorie_apparel[5]  != 0) {this.subcategorie.push('saree')} 
+      if(this.count_by_subcategorie_apparel[6] != 0) {this.subcategorie.push('scarves')}
+      if(this.count_by_subcategorie_apparel[7]  != 0) {this.subcategorie.push('stoles')}
+      if(this.count_by_subcategorie_apparel[8]  != 0) {this.subcategorie.push('ties')} 
+      if(this.count_by_subcategorie_apparel[9]  != 0) {this.subcategorie.push('topwear')}
+      
+     
+      
+      
+      
+      
+      if(this.count_by_subcategorie_books[0] != 0) {this.subcategorie.push('general')}
+      if(this.count_by_subcategorie_books[1] != 0) {this.subcategorie.push('children')}
+      if(this.count_by_subcategorie_books[2]  != 0) {this.subcategorie.push('classics')}
+      if(this.count_by_subcategorie_books[3]  != 0) {this.subcategorie.push('crime')}
+      if(this.count_by_subcategorie_books[4]  != 0) {this.subcategorie.push('families relationship')}
+      if(this.count_by_subcategorie_books[5]  != 0) {this.subcategorie.push('fantasy')}
+      if(this.count_by_subcategorie_books[6]  != 0) {this.subcategorie.push('literature')} 
+      if(this.count_by_subcategorie_books[7]  != 0) {this.subcategorie.push('others')}
+      if(this.count_by_subcategorie_books[8]  != 0) {this.subcategorie.push('romance')}
+      if(this.count_by_subcategorie_books[9]  != 0) {this.subcategorie.push('science fiction')}
+      if(this.count_by_subcategorie_books[10]  != 0) {this.subcategorie.push('short stories')}
+      if(this.count_by_subcategorie_books[11]  != 0) {this.subcategorie.push('young adults')} 
+      if(this.count_by_subcategorie_footwear[0] != 0) {this.subcategorie.push('flip flops')}
+      if(this.count_by_subcategorie_footwear[1] != 0) {this.subcategorie.push('sandal')}
+      if(this.count_by_subcategorie_footwear[2]  != 0) {this.subcategorie.push('shoe accessories')}
+      if(this.count_by_subcategorie_footwear[3]  != 0) {this.subcategorie.push('shoes')}
+      if(this.count_by_subcategorie_footwear[4]  != 0) {this.subcategorie.push('socks')}
+      if(this.count_by_subcategorie_personal_care[0] != 0) {this.subcategorie.push('bath body')}
+      if(this.count_by_subcategorie_personal_care[1] != 0) {this.subcategorie.push('eyes')}
+      if(this.count_by_subcategorie_personal_care[2]  != 0) {this.subcategorie.push('fragrance')}
+      if(this.count_by_subcategorie_personal_care[3]  != 0) {this.subcategorie.push('hair')}
+      if(this.count_by_subcategorie_personal_care[4]  != 0) {this.subcategorie.push('lips')}
+      if(this.count_by_subcategorie_personal_care[5]  != 0) {this.subcategorie.push('makeup')}
+      if(this.count_by_subcategorie_personal_care[6]  != 0) {this.subcategorie.push('nails')} 
+      if(this.count_by_subcategorie_personal_care[7]  != 0) {this.subcategorie.push('skin care')}
+      if(this.count_by_subcategorie_phones[0] != 0) {this.subcategorie.push('android')}
+      if(this.count_by_subcategorie_phones[1] != 0) {this.subcategorie.push('apple')}
+      if(this.count_by_subcategorie_phones[2]  != 0) {this.subcategorie.push('honor')}
+      if(this.count_by_subcategorie_phones[3]  != 0) {this.subcategorie.push('huawei')}
+      if(this.count_by_subcategorie_phones[4]  != 0) {this.subcategorie.push('nokia')}
+      if(this.count_by_subcategorie_phones[5]  != 0) {this.subcategorie.push('oneplus')}
+      if(this.count_by_subcategorie_phones[6]  != 0) {this.subcategorie.push('oppo')} 
+      if(this.count_by_subcategorie_phones[7]  != 0) {this.subcategorie.push('redmi')}
+      if(this.count_by_subcategorie_phones[8]  != 0) {this.subcategorie.push('samsung')}
+      if(this.count_by_subcategorie_phones[9]  != 0) {this.subcategorie.push('sony')}
+      if(this.count_by_subcategorie_phones[10]  != 0) {this.subcategorie.push('vivo')}
+      if(this.count_by_subcategorie_sporting[0] != 0) {this.subcategorie.push('bags(Sporting)')}
+      if(this.count_by_subcategorie_sporting[1] != 0) {this.subcategorie.push('eyewear(Sporting)')}
+      if(this.count_by_subcategorie_sporting[2]  != 0) {this.subcategorie.push('headwear(Sporting)')}
+      if(this.count_by_subcategorie_sporting[3]  != 0) {this.subcategorie.push('Sport Equipement')}
+      if(this.count_by_subcategorie_sporting[4]  != 0) {this.subcategorie.push('watches(Sporting)')}
+      if(this.count_by_subcategorie_sporting[5]  != 0) {this.subcategorie.push('water bottle')}
+
 
       var speedCanvas = document.getElementById("speedChart");
 
@@ -579,7 +648,7 @@ export class DashboardComponent implements OnInit {
     this.chartEmail = new Chart(this.ctx, {
       type: 'bar',
       data: {
-        labels: ["Bags Accessories", "Belts","Cufflinks","Eyewear Accessories","Gift","Gloves","Headwear Accessories","Jewellery","Wallets","Watches Accessories","Apparel Set","Bottomwear","Dress","Innerwear","loungewear & Nightwear","Saree","Scarves","Stoles","Ties","Topwear","Children","Classics","Crime","Families Relationship","Fantasy","Literature","Others Books","Romance","Science Fiction","Short Stories","Young Adults","Flip Flops","Sandal","Shoe Accessories","Shoes","Socks","Bath Body","Eyes","Fragrance","Hair","Lips","Makeup","Nails","Skin Care","Android","Apple","Honor","Huawei","Nokia","Oneplus","Oppo","Redmi","Samsung","Sony","Vivo","Bags Sporting","Eyewear Sporting","Headwear Sporting","Sports Equipment","Watches Sporting","Water bottle"],
+        labels: ["Bags Accessories", "Belts","Cufflinks","Eyewear Accessories","Gift","Gloves","Headwear Accessories","Jewellery","Wallets","Watches Accessories","Apparel Set","Bottomwear","Dress","Innerwear","loungewear & Nightwear","Saree","Scarves","Stoles","Ties","Topwear","Children","Classics","Crime","Families Relationship","Fantasy","General","Literature","Others Books","Romance","Science Fiction","Short Stories","Young Adults","Flip Flops","Sandal","Shoe Accessories","Shoes","Socks","Bath Body","Eyes","Fragrance","Hair","Lips","Makeup","Nails","Skin Care","Android","Apple","Honor","Huawei","Nokia","Oneplus","Oppo","Redmi","Samsung","Sony","Vivo","Bags Sporting","Eyewear Sporting","Headwear Sporting","Sports Equipment","Watches Sporting","Water bottle"],
         datasets: [
           {
             label: "Population (millions)",

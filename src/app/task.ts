@@ -12,4 +12,5 @@ export interface Task {
     Count:number
     Mean:number
     like:number
+    vendeurId:number
 }
